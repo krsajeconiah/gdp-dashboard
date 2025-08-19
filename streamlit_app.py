@@ -56,10 +56,10 @@ features_map = {
 # Mapping untuk kelas target (Subject of Painting)
 target_map = {0: 'Seascape', 1: 'Landscape', 2: 'Still Life', 3: 'Wild Life', 4: 'Portrait', 5: 'Fantasy', 6: 'Abstract'}
 
-# --- Fungsi Klasifikasi Hardcoded (Versi Lebih Realistis - Diperbaiki) ---
+# --- Fungsi Klasifikasi ---
 def hardcoded_predict(medium, style, color_palette, mood, environment):
     # Aturan untuk Seascape
-    if environment in ['Living Room', 'Office', 'Gallery'] and (mood == 'Calming' or mood == 'Relaxing') and color_palette in ['Oceanic Tone', 'Cool Tone', 'Neutral Tone']: # Menggunakan 'in' dan 'Cool Tone'
+    if environment in ['Living Room', 'Office', 'Gallery'] and (mood == 'Calming' or mood == 'Relaxing') and color_palette in ['Oceanic Tone', 'Cool Tone', 'Neutral Tone']: 
         return target_map[0]  # Seascape
     
     # Aturan untuk Landscape
@@ -95,16 +95,15 @@ def hardcoded_predict(medium, style, color_palette, mood, environment):
     # Aturan untuk Abstract
     elif style == 'Abstract Expressionism' and color_palette in ['Earthy Tone', 'Cool Tone', 'Neutral Tone']:
         return target_map[6]  # Abstract
-    elif medium == 'Acrylic' and style == 'Abstract Expressionism': # Disesuaikan: 'Abstract' -> 'Abstract Expressionism'
+    elif medium == 'Acrylic' and style == 'Abstract Expressionism': 
         return target_map[6] # Abstract
 
-    # Aturan default jika tidak ada yang cocok.
     else:
-        # Jika tidak ada aturan spesifik yang cocok, coba tebak yang paling umum atau netral
-        if environment == 'Office': return target_map[1] # Default ke Landscape
-        elif environment == 'Living Room': return target_map[4] # Default ke Portrait
-        elif mood == 'Joyful': return target_map[2] # Default ke Still Life
-        else: return target_map[1] # Default ke Landscape jika tidak ada kecocokan lain
+  
+        if environment == 'Office': return target_map[1]
+        elif environment == 'Living Room': return target_map[4] 
+        elif mood == 'Joyful': return target_map[2] 
+        else: return target_map[1] 
 
 # --- Kolom Input Fitur Interaktif ---
 st.header("Masukkan Karakteristik Karya Seni")
@@ -124,7 +123,7 @@ with col2:
 if st.button("Prediksi Kategori Karya Seni", use_container_width=True):
     with st.spinner('Aplikasi sedang memproses...'):
         try:
-            # Panggil fungsi prediksi hardcoded
+           
             predicted_label = hardcoded_predict(selected_medium, selected_style, selected_color, selected_mood, selected_environment)
 
             # Menampilkan hasil
